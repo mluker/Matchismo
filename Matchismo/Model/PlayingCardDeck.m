@@ -21,7 +21,8 @@
                 card.suit = suit;
                 [self addCard:card atTop:YES];
             }
-        } }
+        }
+    }
     return self;
 }
 @end
