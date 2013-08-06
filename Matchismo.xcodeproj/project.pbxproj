@@ -21,6 +21,7 @@
 		5A8EC4F617B069B90072C759 /* Card.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EC4F517B069B90072C759 /* Card.m */; };
 		5A8EC4F917B06A2B0072C759 /* Deck.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EC4F817B06A2B0072C759 /* Deck.m */; };
 		5A8EC4FD17B077E30072C759 /* PlayingCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EC4FC17B077E30072C759 /* PlayingCard.m */; };
+		5A8EC50017B0805F0072C759 /* PlayingCardDeck.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8EC4FF17B0805F0072C759 /* PlayingCardDeck.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,8 @@
 		5A8EC4F817B06A2B0072C759 /* Deck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Deck.m; path = Model/Deck.m; sourceTree = "<group>"; };
 		5A8EC4FB17B077E30072C759 /* PlayingCard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCard.h; path = Model/PlayingCard.h; sourceTree = "<group>"; };
 		5A8EC4FC17B077E30072C759 /* PlayingCard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCard.m; path = Model/PlayingCard.m; sourceTree = "<group>"; };
+		5A8EC4FE17B0805F0072C759 /* PlayingCardDeck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayingCardDeck.h; path = Model/PlayingCardDeck.h; sourceTree = "<group>"; };
+		5A8EC4FF17B0805F0072C759 /* PlayingCardDeck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayingCardDeck.m; path = Model/PlayingCardDeck.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +129,8 @@
 				5A8EC4F817B06A2B0072C759 /* Deck.m */,
 				5A8EC4FB17B077E30072C759 /* PlayingCard.h */,
 				5A8EC4FC17B077E30072C759 /* PlayingCard.m */,
+				5A8EC4FE17B0805F0072C759 /* PlayingCardDeck.h */,
+				5A8EC4FF17B0805F0072C759 /* PlayingCardDeck.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -203,6 +208,7 @@
 				5A8EC4F617B069B90072C759 /* Card.m in Sources */,
 				5A8EC4F917B06A2B0072C759 /* Deck.m in Sources */,
 				5A8EC4FD17B077E30072C759 /* PlayingCard.m in Sources */,
+				5A8EC50017B0805F0072C759 /* PlayingCardDeck.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
