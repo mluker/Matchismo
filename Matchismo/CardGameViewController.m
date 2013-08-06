@@ -13,6 +13,7 @@
 @interface CardGameViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 @property (strong, nonatomic) Deck *deck;
@@ -49,6 +50,9 @@
         
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
+        cardButton.alpha = card.isUnplayable ? .3 : 1.0;
+        self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
+        
     }
 }
 
