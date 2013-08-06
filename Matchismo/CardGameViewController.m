@@ -51,9 +51,8 @@
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? .3 : 1.0;
-        self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
-        
     }
+    self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
 }
 
 - (void)setFlipCount:(int)flipCount
