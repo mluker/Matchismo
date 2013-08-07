@@ -32,7 +32,6 @@
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
-    //[self updateUI];
 }
 
 -(void)updateUI
