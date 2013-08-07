@@ -29,8 +29,6 @@
 - (NSString *) contents
 {
     return [[PlayingCard rankStrings][self.rank] stringByAppendingString:self.suit];
-    //NSArray *rankStrings = [PlayingCard rankStrings];
-    //return [rankStrings[self.rank] stringByAppendingString:self.suit];
 }
 
 @synthesize suit = _suit;

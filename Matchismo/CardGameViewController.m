@@ -16,29 +16,23 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (strong, nonatomic) Deck *deck;
 @property (strong, nonatomic) CardMatchingGame *game;
 
 @end
 
 @implementation CardGameViewController
 
-- (Deck *)deck
-{
-    if(!_deck) _deck = [[PlayingCardDeck alloc] init];
-    return _deck;
-}
-
 - (CardMatchingGame *)game
 {
-    if(!_game) _game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count usingDeck:[[PlayingCardDeck alloc] init]];
+    if(!_game) _game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
+                                                        usingDeck:[[PlayingCardDeck alloc] init]];
     return _game;
 }
 
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
-    [self updateUI];
+    //[self updateUI];
 }
 
 -(void)updateUI
