@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) NSMutableArray *cards;
 @property (nonatomic)int score;
+@property (nonatomic) NSString *feedback;
 
 @end
 
@@ -21,6 +22,14 @@
 {
     if(!_cards) _cards = [[NSMutableArray alloc]init];
     return _cards;
+}
+
+- (NSString *)feedback
+{
+    if (!_feedback) {
+        _feedback = @"Welcome To Matchismo!";
+    }
+    return _feedback;
 }
 
 - (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
@@ -55,16 +64,20 @@
     
     if(!card.isUnplayable){
         if(!card.isFaceUp){
+            self.feedback = [NSString stringWithFormat:@"You Flipped the %@", card.contents];
             for(Card *otherCard in self.cards){
                 if(otherCard.isFaceUp && !otherCard.isUnplayable){
                     int matchScore = [card match:@[otherCard]];
                     if(matchScore){
+                        self.feedback = [NSString stringWithFormat:@"Matched %@ and %@ for %d points", card.contents, otherCard.contents, MATCH_BONUS];
                         otherCard.unPlayable = YES;
                         card.unPlayable = YES;
                         self.score += matchScore * MATCH_BONUS;
+                        //self.feedback = [NSString stringWithFormat:@"Rank match! [%d] points", MATCH_BONUS];
                     } else{
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
+                        self.feedback = [NSString stringWithFormat:@"%@ and %@ don't mactch! %d point penalty",card.contents, otherCard.contents, MISMATCH_PENALTY];
                     }
                     break;
                 }
