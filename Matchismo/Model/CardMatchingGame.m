@@ -10,9 +10,10 @@
 
 @interface CardMatchingGame()
 
-@property (strong, nonatomic) NSMutableArray *cards;
-@property (nonatomic)int score;
-@property (nonatomic) NSString *feedback;
+@property (strong, nonatomic)NSMutableArray *cards;
+@property (nonatomic)NSUInteger score;
+@property (nonatomic)NSString *feedback;
+
 
 @end
 
@@ -24,17 +25,10 @@
     return _cards;
 }
 
-- (NSString *)feedback
-{
-    if (!_feedback) {
-        _feedback = @"Welcome To Matchismo!";
-    }
-    return _feedback;
-}
-
 - (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
 {
     self = [super init];
+    self.feedback = @"Welcome to Matchismo!";
     
     if(self){
         for(int i =0; i < cardCount; i++){
@@ -73,7 +67,6 @@
                         otherCard.unPlayable = YES;
                         card.unPlayable = YES;
                         self.score += matchScore * MATCH_BONUS;
-                        //self.feedback = [NSString stringWithFormat:@"Rank match! [%d] points", MATCH_BONUS];
                     } else{
                         otherCard.faceUp = NO;
                         self.score -= MISMATCH_PENALTY;
@@ -87,5 +80,12 @@
         card.faceUp = !card.isFaceUp;
     }
 }
+
+- (NSUInteger)numberOfCardsToMatch
+{
+    if(_numberOfCardsToMatch) _numberOfCardsToMatch = 2;
+    return _numberOfCardsToMatch;
+}
+
 
 @end

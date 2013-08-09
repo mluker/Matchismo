@@ -19,6 +19,7 @@
 
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) CardMatchingGame *game;
+@property (weak, nonatomic) IBOutlet UISwitch *gameModeSwitch;
 
 
 @end
@@ -50,6 +51,7 @@
     }
     self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
     self.feedbackLabel.text = [NSString stringWithFormat:@"%@", self.game.feedback];
+    self.gameModeSwitch.enabled = NO;
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -63,6 +65,8 @@
     self.game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
                                                  usingDeck:[[PlayingCardDeck alloc] init]];
     [self updateUI];
+    self.gameModeSwitch.enabled = YES;
+    
 }
 
 - (IBAction)flipCard:(UIButton *)sender
@@ -70,6 +74,10 @@
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
     [self updateUI];
+}
+
+- (IBAction)gameModeChange {
+    self.game.numberOfCardsToMatch = self.gameModeSwitch.on ? 3 : 2;
 }
 
 @end

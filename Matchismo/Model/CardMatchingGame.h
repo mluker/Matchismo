@@ -15,7 +15,8 @@
 - (void)flipCardAtIndex:(NSUInteger)index;
 - (Card *)cardAtIndex:(NSUInteger)index;
 
-@property (nonatomic, readonly) int score;
+@property (nonatomic, readonly) NSUInteger score;
 @property (nonatomic, readonly) NSString *feedback;
+@property (nonatomic) NSUInteger numberOfCardsToMatch;
 
 @end
