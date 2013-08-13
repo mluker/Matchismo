@@ -36,18 +36,26 @@
 - (void)setCardButtons:(NSArray *)cardButtons
 {
     _cardButtons = cardButtons;
+    [self updateUI];
 }
 
 -(void)updateUI
 {
     for(UIButton *cardButton in self.cardButtons){
-        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
+        Card  *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
+        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];        
         
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? .3 : 1.0;
+        
+        if(card.isFaceUp){
+            [cardButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", card.contents]] forState:UIControlStateNormal];
+        } else {
+
+            [cardButton setImage:[UIImage imageNamed:@"cardback.png"] forState:UIControlStateNormal];
+        }
     }
     self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
     self.feedbackLabel.text = [NSString stringWithFormat:@"%@", self.game.feedback];
