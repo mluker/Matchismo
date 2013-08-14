@@ -67,7 +67,7 @@
                     //[flippedCardsContent addObject:flippedCard.contents];
                 }
             }
-            if([flippedCards count] <= self.numberOfCardsToMatch){
+            if([flippedCards count] < self.numberOfCardsToMatch - 1){
                 
             } else {            
                 int matchScore = [card match:flippedCards];
@@ -94,6 +94,7 @@
 
 - (NSUInteger)numberOfCardsToMatch
 {
+    return 3;
     if(_numberOfCardsToMatch) _numberOfCardsToMatch = 2;
     return _numberOfCardsToMatch;
 }
