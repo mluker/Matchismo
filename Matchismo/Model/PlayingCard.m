@@ -10,9 +10,9 @@
 
 @implementation PlayingCard
 
-- (int)match:(NSArray *)otherCards
+- (NSInteger)match:(NSArray *)otherCards
 {
-    int score = 0;
+    NSInteger score = 0;
 
     if (otherCards.count) {
         for (PlayingCard *card in otherCards) {           

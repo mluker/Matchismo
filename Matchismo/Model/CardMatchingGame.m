@@ -25,7 +25,7 @@
     return _cards;
 }
 
-- (id)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
+- (instancetype)initWithCardCount:(NSUInteger)cardCount usingDeck:(Deck *)deck
 {
     self = [super init];
     self.feedback = @"Welcome to Matchismo!";
@@ -94,8 +94,7 @@
 
 - (NSUInteger)numberOfCardsToMatch
 {
-    return 3;
-    if(_numberOfCardsToMatch) _numberOfCardsToMatch = 2;
+    if(!_numberOfCardsToMatch) _numberOfCardsToMatch = 2;
     return _numberOfCardsToMatch;
 }
 

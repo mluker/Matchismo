@@ -11,7 +11,7 @@
 
 @implementation PlayingCardDeck
 
-- (id)init {
+- (instancetype)init {
     self = [super init];
     if (self) {
         for (NSString *suit in [PlayingCard validSuits]) {
