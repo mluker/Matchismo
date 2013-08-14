@@ -58,13 +58,11 @@
     
     if(!card.isUnplayable){
         if(!card.isFaceUp){
-            //self.feedback = [NSString stringWithFormat:@"You Flipped the %@", card.contents];
+            self.feedback = [NSString stringWithFormat:@"You Flipped the %@", card.contents];
             NSMutableArray *flippedCards = [[NSMutableArray alloc] init];
-            //NSMutableArray *flippedCardsContent = [[NSMutableArray alloc] init];
             for(Card *flippedCard in self.cards){
                 if(flippedCard.isFaceUp && !flippedCard.isUnplayable){
                     [flippedCards addObject:flippedCard];
-                    //[flippedCardsContent addObject:flippedCard.contents];
                 }
             }
             if([flippedCards count] < self.numberOfCardsToMatch - 1){
@@ -72,18 +70,20 @@
             } else {            
                 int matchScore = [card match:flippedCards];
                 if(matchScore){
-                    //self.feedback = [NSString stringWithFormat:@"Matched %@ and %@ for %d points", card.contents, flippedCard.contents, MATCH_BONUS];
                     card.unPlayable = YES;
                     for(Card *card in flippedCards){
                         card.unPlayable = YES;
+                        //self.feedback = [NSString stringWithFormat:@"Matched %@ and %@ for %d points", card.contents, card.contents, MATCH_BONUS];
+                        self.feedback = [self.feedback stringByAppendingFormat:@"%@", card.contents];
                     }
+                    self.feedback = [self.feedback stringByAppendingFormat:@" - Points %d", MATCH_BONUS];
                     self.score += matchScore * MATCH_BONUS;
                 } else {
                     for(Card *card in flippedCards){
                         card.faceUp = NO;
                     }                    
                     self.score -= MISMATCH_PENALTY;
-                    //self.feedback = [NSString stringWithFormat:@"%@ and %@ don't mactch! %d point penalty",card.contents, flippedCard.contents, MISMATCH_PENALTY];
+                    self.feedback = [self.feedback stringByAppendingFormat:@"%@  - Penalty Points %d", card.contents, MISMATCH_PENALTY];
                 }
             }
             self.score -= FLIP_COST;
