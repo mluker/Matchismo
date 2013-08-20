@@ -1,16 +1,16 @@
 //
-//  CardGameViewController.m
+//  SetGameViewController.m
 //  Matchismo
 //
-//  Created by Matt Luker on 8/2/13.
+//  Created by Matt Luker on 8/19/13.
 //  Copyright (c) 2013 Matt Luker. All rights reserved.
 //
 
-#import "CardGameViewController.h"
-#import "PlayingCardDeck.h"
+#import "SetGameViewController.h"
+#import "SetCardDeck.h"
 #import "CardMatchingGame.h"
 
-@interface CardGameViewController ()
+@interface SetGameViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *flipsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
@@ -19,17 +19,15 @@
 
 @property (nonatomic) int flipCount;
 @property (strong, nonatomic) CardMatchingGame *game;
-@property (weak, nonatomic) IBOutlet UISwitch *gameModeSwitch;
-
 
 @end
 
-@implementation CardGameViewController
+@implementation SetGameViewController
 
 - (CardMatchingGame *)game
 {
     if(!_game) _game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
-                                                        usingDeck:[[PlayingCardDeck alloc] init]];
+                                                        usingDeck:[[SetCardDeck alloc] init]];
     return _game;
 }
 
@@ -44,7 +42,7 @@
     for(UIButton *cardButton in self.cardButtons){
         Card  *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         [cardButton setTitle:card.contents forState:UIControlStateSelected];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];        
+        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
         
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
@@ -53,13 +51,12 @@
         if(card.isFaceUp){
             [cardButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", card.contents]] forState:UIControlStateNormal];
         } else {
-
+            
             [cardButton setImage:[UIImage imageNamed:@"cardback.png"] forState:UIControlStateNormal];
         }
     }
     self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
     self.feedbackLabel.text = [NSString stringWithFormat:@"%@", self.game.feedback];
-    self.gameModeSwitch.enabled = NO;
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -70,12 +67,8 @@
 
 - (IBAction)deal
 {
-//    self.game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
-//                                                 usingDeck:[[PlayingCardDeck alloc] init]];
     self.game = nil;
     [self updateUI];
-    self.gameModeSwitch.enabled = YES;
-    
 }
 
 - (IBAction)flipCard:(UIButton *)sender
@@ -83,10 +76,6 @@
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
     [self updateUI];
-}
-
-- (IBAction)gameModeChange {
-    self.game.numberOfCardsToMatch = self.gameModeSwitch.on ? 3 : 2;
 }
 
 @end
