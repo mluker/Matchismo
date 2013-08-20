@@ -9,6 +9,7 @@
 #import "SetGameViewController.h"
 #import "SetCardDeck.h"
 #import "CardMatchingGame.h"
+#import "SetCard.h"
 
 @interface SetGameViewController ()
 
@@ -40,19 +41,19 @@
 -(void)updateUI
 {
     for(UIButton *cardButton in self.cardButtons){
-        Card  *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected];
-        [cardButton setTitle:card.contents forState:UIControlStateSelected|UIControlStateDisabled];
+        Card *card = [self.game cardAtIndex:[self.cardButtons indexOfObject:cardButton]];
         
         cardButton.selected = card.isFaceUp;
         cardButton.enabled = !card.isUnplayable;
-        cardButton.alpha = card.isUnplayable ? .3 : 1.0;
+        cardButton.alpha = card.isUnplayable ? 0 : 1.0;
+        
+        [cardButton setAttributedTitle:[self convertContentsToAttributedString:(SetCard *)card] forState:UIControlStateNormal];
         
         if(card.isFaceUp){
-            [cardButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", card.contents]] forState:UIControlStateNormal];
+            [cardButton setBackgroundColor:[UIColor lightGrayColor]];
         } else {
-            
-            [cardButton setImage:[UIImage imageNamed:@"cardback.png"] forState:UIControlStateNormal];
+            cardButton.alpha = 1;
+            [cardButton setBackgroundColor:[UIColor whiteColor]];
         }
     }
     self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
@@ -73,9 +74,43 @@
 
 - (IBAction)flipCard:(UIButton *)sender
 {
+    self.game.numberOfCardsToMatch = 3;
     [self.game flipCardAtIndex:[self.cardButtons indexOfObject:sender]];
     self.flipCount++;
     [self updateUI];
+}
+
+- (NSAttributedString *)convertContentsToAttributedString:(SetCard *)card
+{
+        NSString *symbol = @"?";
+        if ([card.symbol isEqualToString:@"oval"]) symbol = @"●";
+        if ([card.symbol isEqualToString:@"triangle"]) symbol = @"▲";
+        if ([card.symbol isEqualToString:@"square"]) symbol = @"■";
+        
+        NSMutableDictionary *attributes = [[NSMutableDictionary alloc] init];
+        
+        if ([card.color isEqualToString:@"red"])
+            [attributes setObject:[UIColor redColor] forKey:NSForegroundColorAttributeName];
+        if ([card.color isEqualToString:@"green"])
+            [attributes setObject:[UIColor greenColor] forKey:NSForegroundColorAttributeName];
+        if ([card.color isEqualToString:@"purple"])
+            [attributes setObject:[UIColor purpleColor] forKey:NSForegroundColorAttributeName];
+        
+        if ([card.shading isEqualToString:@"solid"])
+            [attributes setObject:@-5 forKey:NSStrokeWidthAttributeName];
+        if ([card.shading isEqualToString:@"striped"])
+            [attributes addEntriesFromDictionary:@{
+                     NSStrokeWidthAttributeName : @-5,
+                     NSStrokeColorAttributeName : attributes[NSForegroundColorAttributeName],
+                 NSForegroundColorAttributeName : [attributes[NSForegroundColorAttributeName] colorWithAlphaComponent:0.1]
+             }];
+        if ([card.shading isEqualToString:@"open"])
+            [attributes setObject:@5 forKey:NSStrokeWidthAttributeName];
+        
+        symbol = [symbol stringByPaddingToLength:card.number withString:symbol startingAtIndex:0];
+    
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:symbol attributes:attributes];
+    return attrString;
 }
 
 @end

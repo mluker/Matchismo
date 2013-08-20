@@ -61,7 +61,7 @@
 
 + (NSArray *)validSymbols
 {
-    return @[@"oval", @"squiggle", @"diamond"];
+    return @[@"oval", @"triangle", @"square"];
 }
 
 + (NSArray *)validShadings

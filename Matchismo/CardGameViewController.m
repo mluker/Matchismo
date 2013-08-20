@@ -70,8 +70,6 @@
 
 - (IBAction)deal
 {
-//    self.game = [[CardMatchingGame alloc]initWithCardCount:self.cardButtons.count
-//                                                 usingDeck:[[PlayingCardDeck alloc] init]];
     self.game = nil;
     [self updateUI];
     self.gameModeSwitch.enabled = YES;
