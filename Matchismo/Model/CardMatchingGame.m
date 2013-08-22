@@ -72,8 +72,7 @@
                 if(matchScore){
                     card.unPlayable = YES;
                     for(Card *card in flippedCards){
-                        card.unPlayable = YES;
-                        //self.feedback = [NSString stringWithFormat:@"Matched %@ and %@ for %d points", card.contents, card.contents, MATCH_BONUS];
+                        card.unPlayable = YES;                       
                         self.feedback = [self.feedback stringByAppendingFormat:@"%@", card.contents];
                     }
                     self.feedback = [self.feedback stringByAppendingFormat:@" - Points %d", MATCH_BONUS];

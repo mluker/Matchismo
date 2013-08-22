@@ -47,8 +47,9 @@
         cardButton.enabled = !card.isUnplayable;
         cardButton.alpha = card.isUnplayable ? 0 : 1.0;
         
-        [cardButton setAttributedTitle:[self convertContentsToAttributedString:(SetCard *)card] forState:UIControlStateNormal];
-        
+        [cardButton setAttributedTitle:[self updateAttributedString:[[NSAttributedString alloc] initWithString:card.contents]
+                                               withAttributesOfCard:(SetCard *)card] forState:UIControlStateNormal];
+                
         if(card.isFaceUp){
             [cardButton setBackgroundColor:[UIColor lightGrayColor]];
         } else {
@@ -57,7 +58,7 @@
         }
     }
     self.scoreLabel.text =  [NSString stringWithFormat:@"Score: %d", self.game.score];
-    self.feedbackLabel.text = [NSString stringWithFormat:@"%@", self.game.feedback];
+    self.feedbackLabel.text = self.game.feedback;
 }
 
 - (void)setFlipCount:(int)flipCount
@@ -80,8 +81,12 @@
     [self updateUI];
 }
 
-- (NSAttributedString *)convertContentsToAttributedString:(SetCard *)card
+- (NSAttributedString *)updateAttributedString:(NSAttributedString *)attributedString withAttributesOfCard:(SetCard *)card
 {
+    NSMutableAttributedString *mutableAttributedString = [attributedString mutableCopy];
+    NSRange range = [[mutableAttributedString string] rangeOfString:card.contents];
+    
+    if (range.location != NSNotFound) {
         NSString *symbol = @"?";
         if ([card.symbol isEqualToString:@"oval"]) symbol = @"●";
         if ([card.symbol isEqualToString:@"triangle"]) symbol = @"▲";
@@ -109,8 +114,11 @@
         
         symbol = [symbol stringByPaddingToLength:card.number withString:symbol startingAtIndex:0];
     
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:symbol attributes:attributes];
-    return attrString;
+        [mutableAttributedString replaceCharactersInRange:range
+                                     withAttributedString:[[NSAttributedString alloc] initWithString:symbol
+                                                                                          attributes:attributes]];
+    }
+    return mutableAttributedString;
 }
 
 @end
